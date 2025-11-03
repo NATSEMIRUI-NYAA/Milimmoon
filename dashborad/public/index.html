@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+   .wrapper_157bf, header.wrapper_157bf, .content_b51e3c { display: none !important; }
+   </style>
+
+  <meta charset="UTF-8">
+  <title>Nyaa Café</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="dots-bg"></div>
+  <script>
+const dots = 100; // จำนวนจุด
+const dotMin = 16, dotMax = 42; // ขนาดจุด (px)
+const avoidCenter = {x:0.5, y:0.47, r:0.27}; // ศูนย์กลาง, รัศมีเว้นโลโก้/ข้อความ
+const bg = document.querySelector('.dots-bg');
+for (let i = 0; i < dots; i++) {
+  let tries = 0;
+  while (true) {
+    tries++;
+    let x = Math.random();
+    let y = Math.random();
+    if (Math.hypot(x-avoidCenter.x, y-avoidCenter.y) > avoidCenter.r || tries > 10) {
+      let size = dotMin + Math.random() * (dotMax-dotMin);
+      let dot = document.createElement('div');
+      dot.className = "dot-item";
+      dot.style.left = (x*100) + "vw";
+      dot.style.top = (y*100) + "vh";
+      dot.style.width = dot.style.height = size + "px";
+      bg.appendChild(dot);
+      break;
+    }
+  }
+}
+</script>
+<script>
+fetch('/api/dashboard', { credentials: 'include' })
+  .then(res => res.ok ? res.json() : Promise.reject())
+  .then(data => {
+    // ถ้าล็อกอินแล้ว ให้ redirect ไปหน้า dashboard ทันที!
+    window.location.href = "/dashboard.html";
+  })
+  .catch(() => {
+    // ยังไม่ล็อกอิน ปล่อยให้เห็นหน้า Login ปกติ
+  });
+</script>
+ <!-- ครอบเนื้อหาใน container กลาง -->
+  <div class="center-container">
+    <img src="https://ik.imagekit.io/msfmdwdni/1e247eb04b8b10fdf890e4c668167573.png?updatedAt=1762093061981"
+         alt="Cafe Avatar"
+         class="cafe-avatar"/>
+    <h1 class="cafe-welcome">Welcome to Nyaa!</h1>
+    <p class="cafe-sub">Login with your Discord account<br>to enjoy our cozy bot features.</p>
+    <button class="cafe-login-btn"
+      onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1433504625943773194&response_type=code&redirect_uri=https%3A%2F%2Fmilimmoon.online%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+email';">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="discord-icon">
+      <span>Login</span>
+    </button>
+  </div>
+</body>

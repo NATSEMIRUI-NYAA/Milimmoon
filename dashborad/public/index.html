@@ -37,17 +37,6 @@ for (let i = 0; i < dots; i++) {
   }
 }
 </script>
-<script>
-fetch('/api/dashboard', { credentials: 'include' })
-  .then(res => res.ok ? res.json() : Promise.reject())
-  .then(data => {
-    // ถ้าล็อกอินแล้ว ให้ redirect ไปหน้า dashboard ทันที!
-    window.location.href = "/dashboard.html";
-  })
-  .catch(() => {
-    // ยังไม่ล็อกอิน ปล่อยให้เห็นหน้า Login ปกติ
-  });
-</script>
  <!-- ครอบเนื้อหาใน container กลาง -->
   <div class="center-container">
     <img src="https://ik.imagekit.io/msfmdwdni/1e247eb04b8b10fdf890e4c668167573.png?updatedAt=1762093061981"
